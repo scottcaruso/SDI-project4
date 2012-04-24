@@ -31,7 +31,7 @@ var scottLib = function(){
 				var newDecimal = new String(".00");
 				var convertedNumber = localNumber.concat(newDecimal);
 			};
-		console.log(convertedNumber);
+	return convertedNumber
 };
 
 //Part 2
