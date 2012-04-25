@@ -112,10 +112,41 @@ var convertToNumber = function(string){
 	return realNumber
 };
 
+//Part 4
+//String
+//Title-case a string (split into words, then uppercase the first letter of each word)
+
+var stringToCap = function(string){
+	var rawString = new String(string);
+	var newRawString = rawString.split(" ");
+	var numberOfWords = newRawString.length;
+	var newString = [];
+	for (i = 1; i <= numberOfWords; i++){
+		var dummyString = newRawString;
+		var newWord = dummyString.splice(0,1);
+		//console.log(newWord); - debugging purposes
+		var newWordString = new String(newWord);
+		//console.log(newWordString); - debugging purposes
+		var newLetter = newWordString.charAt(0);
+		var restOfWord = newWordString.slice(1);
+		//console.log(newLetter);
+		//console.log(restOfWord);
+		var upperCaseLetter = newLetter.toUpperCase();
+		//console.log(upperCaseLetter);
+		var newWord = upperCaseLetter.concat(restOfWord);
+		//console.log(newWord);
+		newString.push(newWord);
+		};
+	var printString = newString.toString();
+	var noCommas = printString.replace(/,/gi," ");
+	return noCommas
+};
+
 	return {
 		"formatNumber" : formatNumber,
 		"isStringPhoneNumber": isStringPhoneNumber,
-		"convertToNumber" : convertToNumber
+		"convertToNumber" : convertToNumber,
+		"stringToCap" : stringToCap
 		};
 };
 
@@ -123,3 +154,4 @@ var lib = scottLib();
 console.log(lib.formatNumber(14));
 console.log(lib.isStringPhoneNumber("203-867-5309"));
 console.log(lib.convertToNumber("3.75 pounds"));
+console.log(lib.stringToCap("let's turn this into a capitalized string"));
