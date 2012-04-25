@@ -37,13 +37,78 @@ var scottLib = function(){
 //Part 2
 //Number
 //Find the number of hours or days difference between two dates.
-//var daysBetween = function(earlierDate,laterDate){Something happens here to turn this into usable data.};
+var isStringPhoneNumber = function(number){
+	var string = new String (number);
+	var firstHyphen = string.indexOf("-");
+	var secondHyphen = string.lastIndexOf("-");
+	var stringLength = string.length;
+	var lengthValidity = function(){ //determines if the length of the string is valid
+		if (stringLength != 12){
+			var validity = false
+		} else if (firstHyphen != 3){
+			var validity = false
+		} else if (secondHyphen != 7){
+			var validity = false
+		} else {
+			var validity = true
+		};
+		return validity
+	};
+	var areaCode = function(){ //determines if the areaCode section is valid
+		for (i = 0; i < firstHyphen; i++){
+			if (isNaN(string.charAt(i)) == true){
+			var areaCodeValidity = false
+			break
+			} else {
+			var areaCodeValidity = true
+			};
+		};
+		return areaCodeValidity
+	};	
+	var exchange = function(){ //determines if the exchange portion of the number if valid
+		for (i = (firstHyphen + 1); i < secondHyphen; i++){
+			if (isNaN(string.charAt(i)) == true){
+			var exchangeValidity = false
+			break
+			} else {
+			var exchangeValidity = true
+			};
+		};
+		return exchangeValidity
+	};	
+	var lastFour = function(){ // determines if the last four digits are valid
+		for (i = (secondHyphen + 1); i <= stringLength; i++){
+			if (isNaN(string.charAt(i)) == true){
+			var lastFourValidity = false
+			break
+			} else {
+			var lastFourValidity = true
+			};
+		};
+		return lastFourValidity
+	};
+	var overallValidity = function(){ // determines if the whole thing is valid
+		var length = lengthValidity();
+		var area = areaCode();
+		var ex = exchange();
+		var last = lastFour();
+		if (length&&area&&ex&&last == true){
+			var validity = true
+		} else {
+			var validity = false
+		};
+		return validity
+	};
+	var isValid = overallValidity();
+	return isValid
+};
 
 	return {
 		"formatNumber" : formatNumber,
-		"daysBetween": []
+		"isStringPhoneNumber": isStringPhoneNumber
 		};
 };
 
 var lib = scottLib(); 
 console.log(lib.formatNumber(14));
+console.log(lib.isStringPhoneNumber("203-867-5309"));
