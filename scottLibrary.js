@@ -222,11 +222,39 @@ var isValidEmail = function(string){
 //Array
 //Find the smallest value in an array that is greater than a given number
 
+var arraySearch = function(array,number){ //where array is an array of numbers and number is the value to search for
+	var localArray = array; //renaming simply for my own organizational purposes
+	var numberLocation = function(){
+		var i = (number + 1);
+		while (i > number) {
+			var finder = localArray.indexOf(i);
+			var findNumber = function(){
+				if (finder != -1){
+					var existsInArray = true
+				} else {
+					var existsInArray = false
+				}
+				return existsInArray
+			};
+			var doesNumberExist = findNumber();
+			if (doesNumberExist == true){
+				break
+			};
+			i++
+		};
+		return finder
+	};
+	var whereIsNumber = numberLocation();
+	var number = localArray[whereIsNumber];
+	return number
+};
+
 	return {
 		"formatNumber" : formatNumber,
 		"isStringPhoneNumber": isStringPhoneNumber,
 		"convertToNumber" : convertToNumber,
 		"stringToCap" : stringToCap,
-		"isValidEmail" : isValidEmail
+		"isValidEmail" : isValidEmail,
+		"arraySearch" : arraySearch
 		};
 };
