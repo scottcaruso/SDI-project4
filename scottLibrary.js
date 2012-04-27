@@ -37,8 +37,8 @@ var formatNumber = function(number){
 //Part 2
 //String
 //Determine if a string is a phone number
-var isStringPhoneNumber = function(number){
-	var string = new String (number);
+var isStringPhoneNumber = function(numberstring){
+	var string = new String (numberstring);
 	var firstHyphen = string.indexOf("-");
 	var secondHyphen = string.lastIndexOf("-");
 	var stringLength = string.length;
@@ -151,13 +151,6 @@ var isValidEmail = function(string){
 	var emailString = new String(string);
 	var atSymbolLocation = emailString.indexOf("@");
 	var otherAtSymbolLocation = emailString.lastIndexOf("@");
-		if (atSymbolLocation == otherAtSymbolLocation){
-			var onlyOneAtSymbol = true
-		} else {
-			var onlyOneAtSymbol = false
-		};
-	//console.log("Only one at symbol " + onlyOneAtSymbol);
-	//console.log(atSymbolLocation); - for testing purposes to verify atSymbolLocation returns properly
 	var hasAtSymbol = function(){
 		if (atSymbolLocation == -1){
 			var validAt = false
@@ -167,6 +160,13 @@ var isValidEmail = function(string){
 		return validAt
 	};
 	var isValidAt = hasAtSymbol();
+		if (atSymbolLocation == otherAtSymbolLocation){
+			var onlyOneAtSymbol = true
+		} else {
+			var onlyOneAtSymbol = false
+		};
+	//console.log("Only one at symbol " + onlyOneAtSymbol);
+	//console.log(atSymbolLocation); - for testing purposes to verify atSymbolLocation returns properly
 	//console.log(isValidAt); - for testing purposes, to make sure isValidAt returns properly
 	var dotSymbolLocation = emailString.lastIndexOf(".");
 	//console.log(dotSymboleLocation); - for testing purposes to verify dotSymbolLocation returns properly
@@ -224,28 +224,51 @@ var isValidEmail = function(string){
 
 var arraySearch = function(array,number){ //where array is an array of numbers and number is the value to search for
 	var localArray = array; //renaming simply for my own organizational purposes
-	var numberLocation = function(){
-		var i = (number + 1);
-		while (i > number) {
-			var finder = localArray.indexOf(i);
-			var findNumber = function(){
-				if (finder != -1){
-					var existsInArray = true
-				} else {
-					var existsInArray = false
-				}
-				return existsInArray
-			};
-			var doesNumberExist = findNumber();
-			if (doesNumberExist == true){
+	var largestNumber = function(){
+		var i = 0;
+		var countInArray = localArray.length;
+		while (i <= countInArray) {
+			if (number < (localArray[i])) {
+				var numberIsLargest = false;
 				break
+			} else { 
+				var numberIsLargest = true;
 			};
 			i++
 		};
-		return finder
+		return numberIsLargest
+	};
+	var isLargestNumber = largestNumber();
+	var numberLocation = function(){
+		if (isLargestNumber == false){
+			var i = (number + 1);
+			while (i > number) {
+				var finder = localArray.indexOf(i);
+				var findNumber = function(){
+					if (finder != -1){
+						var existsInArray = true
+					} else {
+						var existsInArray = false
+					};
+					return existsInArray
+				};
+				var doesNumberExist = findNumber();
+				if (doesNumberExist == true){
+					break
+				};
+				i++
+			};
+		} else {
+			var finder = -1
+		};
+	return finder
 	};
 	var whereIsNumber = numberLocation();
-	var number = localArray[whereIsNumber];
+	if (whereIsNumber == -1){
+		var number = "The selected number is larger than any number in the array.";
+	} else {
+		var number = localArray[whereIsNumber];
+	};
 	return number
 };
 
